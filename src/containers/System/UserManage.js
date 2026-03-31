@@ -3,11 +3,13 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
 import { getAllUsers } from "../../services/userService";
+import ModalUser from "./ModalUser";
 class UserManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrUsers: [],
+      isOpenModalUser: false,
     };
   }
   async componentDidMount() {
@@ -25,12 +27,37 @@ class UserManage extends Component {
     }
   }
 
+  handleAddNewUser = () => {
+    this.setState({
+      isOpenModalUser: true,
+    });
+  };
+
+  toggleUserModal = () => {
+    this.setState({
+      isOpenModalUser: !this.state.isOpenModalUser,
+    });
+  };
+
   render() {
     console.log("check render", this.state);
     let arrUsers = this.state.arrUsers;
     return (
       <div className="users-container">
+        <ModalUser
+          isOpen={this.state.isOpenModalUser}
+          test={"abc"}
+          toggleFromParent={this.toggleUserModal}
+        />
         <div className="title text-center">Manage user with Kun</div>
+        <div className="mx-1">
+          <button
+            className="btn btn-primary px-3"
+            onClick={() => this.handleAddNewUser()}
+          >
+            <i className="fas fa-plus"></i> Add new user
+          </button>
+        </div>
         <div className="users-table mt-3 mx-1">
           <table>
             <tr>
@@ -45,7 +72,7 @@ class UserManage extends Component {
               arrUsers.map((item, index) => {
                 console.log("check item", item, index);
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>{item.email}</td>
                     <td>{item.firstName}</td>
                     <td>{item.lastName}</td>
