@@ -24,32 +24,63 @@ class ModalUser extends Component {
         toggle={() => {
           this.toggle();
         }}
-        className={"abc"}
+        className={"modal-user-container"}
+        size="md"
+        centered
       >
         <ModalHeader
           toggle={() => {
             this.toggle();
           }}
         >
-          Modal title
+          Create a new user
         </ModalHeader>
-        <ModalBody>Lorem ipsum dola</ModalBody>
+        <ModalBody>
+          <div className="modal-user-body">
+            <div className="input-container">
+              <label>Email</label>
+              <input type="text" />
+            </div>
+
+            <div className="input-container">
+              <label>Password</label>
+              <input type="password" />
+            </div>
+
+            <div className="input-container">
+              <label>First name</label>
+              <input type="text" />
+            </div>
+
+            <div className="input-container">
+              <label>Last name</label>
+              <input type="text" />
+            </div>
+
+            <div className="input-container max-width-input">
+              <label>Address</label>
+              <input type="text" />
+            </div>
+          </div>
+        </ModalBody>
         <ModalFooter>
           <Button
             color="primary"
             onClick={() => {
               this.toggle();
             }}
+            className="px-3"
           >
-            DO something
+            Save Changes
           </Button>
           <Button
             color="secondary"
             onClick={() => {
               this.toggle();
             }}
+            className="px-3"
           >
-            Cancel
+            Close
           </Button>
         </ModalFooter>
       </Modal>
