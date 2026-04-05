@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
+import { emitter } from "../../utils/emitter";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { getAllUsers } from "../../services/userService";
 class ModalUser extends Component {
@@ -13,10 +14,22 @@ class ModalUser extends Component {
       lastName: "",
       address: "",
     };
+    this.listenToEmitter();
+  }
+  listenToEmitter() {
+    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
+      this.setState({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+      });
+    });
   }
 
   async componentDidMount() {
-    await this.getAllUsersFromReact();
+    console.log("mount modal");
   }
 
   toggle = () => {
